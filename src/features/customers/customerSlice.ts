@@ -1,5 +1,5 @@
 export const initialStateCustomer = {
-  fullName: "Felipe André",
+  fullName: "",
   nationalID: "",
   createdAt: "",
 };
