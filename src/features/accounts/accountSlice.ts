@@ -1,93 +1,60 @@
-import { AppDispatch, RootState } from "../../store";
+import { createSlice } from "@reduxjs/toolkit";
+import { AppDispatch } from "../../rtk-boiterplate-store";
+
 import { formattedDate } from "../../utils/date-to-currency-api";
 
-type Actions =
-  | {
-      type: "account/deposit";
-      payload: number;
-    }
-  | {
-      type: "account/withdraw";
-      payload: number;
-    }
-  | {
-      type: "account/requestLoan";
-      payload: { amount: number; porpose: string };
-    }
-  | {
-      type: "account/payLoan";
-    }
-  | {
-      type: "account/convertingCurrency";
-    };
-
 // Initial State
-const initialStateAccount = {
+const initialState = {
   balance: 0,
   loan: 0,
   loanPorpose: "",
   isLoading: false,
 };
 
-type AccountState = typeof initialStateAccount;
+const accountSlice = createSlice({
+  name: "account",
+  initialState,
+  reducers: {
+    // Não precisamos mais de spread operator para atualizar o estado porque o Redux Toolkit faz isso automaticamente
+    deposit(state, action) {
+      state.balance += action.payload;
+      state.isLoading = false;
+    },
+    withdraw(state, action) {
+      state.balance -= action.payload;
+    },
+    requestLoan: {
+      prepare(amount: number, purpose: string) {
+        return {
+          payload: { amount, purpose },
+          meta: {}, // Adicione um objeto vazio ou os dados que você precisa
+          error: null, // Adicione `null` ou um objeto de erro se houver
+        };
+      },
+      reducer(state, action) {
+        if (state.loan > 0) return;
+        state.loan = action.payload.amount;
+        state.loanPorpose = action.payload.purpose;
+        state.balance += action.payload.amount;
+      },
+    },
+    payLoan(state) {
+      state.balance -= state.loan;
+      state.loan = 0;
+      state.loanPorpose = "";
+    },
+    convertingCurrency(state) {
+      state.isLoading = true;
+    },
+  },
+});
 
-// Reducer
-export default function accountReducer(
-  state: AccountState = initialStateAccount,
-  action: Actions
-) {
-  switch (action.type) {
-    case "account/deposit":
-      return {
-        ...state,
-        balance: state.balance + action.payload,
-        isLoading: false,
-      };
-
-    case "account/withdraw":
-      return {
-        ...state,
-        balance: state.balance - action.payload,
-      };
-
-    case "account/requestLoan":
-      if (state.loan > 0) return state;
-      return {
-        ...state,
-        loan: action.payload.amount,
-        loanPorpose: action.payload.porpose,
-        balance: state.balance + action.payload.amount,
-      };
-
-    case "account/payLoan":
-      return {
-        ...state,
-        balance: state.balance - state.loan,
-        loan: 0,
-        loanPorpose: "",
-      };
-
-    case "account/convertingCurrency":
-      return {
-        ...state,
-        isLoading: true,
-      };
-
-    default:
-      return state;
-  }
-}
-
-// Actions Creators
+// Action Creator usando Redux Thunk
 export function deposit(amount: number, currency: string) {
   if (currency === "USD") return { type: "account/deposit", payload: amount };
 
-  // This is a thunk
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
+  return async (dispatch: AppDispatch) => {
     // This is a side effect (fetching data from an API)
-
-    const state = getState();
-    console.log("Estado atual:", state);
 
     dispatch({ type: "account/convertingCurrency" });
 
@@ -106,17 +73,7 @@ export function deposit(amount: number, currency: string) {
   };
 }
 
-export function withdraw(amount: number) {
-  return { type: "account/withdraw", payload: amount };
-}
+export const { withdraw, requestLoan, payLoan, convertingCurrency } =
+  accountSlice.actions;
 
-export function requestLoan(amount: number, porpose: string) {
-  return {
-    type: "account/requestLoan",
-    payload: { amount, porpose },
-  };
-}
-
-export function payLoan() {
-  return { type: "account/payLoan" };
-}
+export default accountSlice.reducer;
