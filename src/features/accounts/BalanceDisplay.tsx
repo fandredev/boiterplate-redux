@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState } from "../../rtk-boiterplate-store";
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat("pt-BR", {

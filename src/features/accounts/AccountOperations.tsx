@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deposit, payLoan, requestLoan, withdraw } from "./accountSlice";
-import { AppDispatch, RootState } from "../../store";
+import type { AppDispatch, RootState } from "../../rtk-boiterplate-store";
 
 export default function AccountOperations() {
   const [depositAmount, setDepositAmount] = useState(0);

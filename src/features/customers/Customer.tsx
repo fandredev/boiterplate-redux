@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import type { RootState } from "../../store";
+import type { RootState } from "../../rtk-boiterplate-store";
 
 export default function Customer() {
   const customerName = useSelector(
