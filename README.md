@@ -12,6 +12,7 @@ Boiterplate to Redux, Redux Thunk + RTK using Typescript that you use in your pr
 - [Eslint](https://prettier.io/)
 - [React Redux](https://react-redux.js.org/)
 - [Redux Thunk](https://github.com/reduxjs/redux-thunk)
+- [Redux Devtools Extension](https://github.com/zalmoxisus/redux-devtools-extension)
 - [asdf](https://asdf-vm.com/)
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
