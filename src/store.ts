@@ -1,6 +1,12 @@
-import { combineReducers, legacy_createStore } from "redux";
+import {
+  applyMiddleware,
+  combineReducers,
+  legacy_createStore as createStore,
+} from "redux";
 import accountReducer from "./features/accounts/accountSlice";
 import customerReducer from "./features/customers/customerSlice";
+
+import { thunk } from "redux-thunk";
 
 const rootReducers = combineReducers({
   // combine all reducers
@@ -11,6 +17,6 @@ const rootReducers = combineReducers({
 export type RootState = ReturnType<typeof rootReducers>; // use this in useSelector hook
 export type AppDispatch = typeof store.dispatch; // use this in useDispatch hook
 
-const store = legacy_createStore(rootReducers); // create store
+const store = createStore(rootReducers, undefined, applyMiddleware(thunk)); // create store
 
 export default store;
