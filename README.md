@@ -1,6 +1,6 @@
 # Description:
 
-Boiterplate to Redux, Redux Thunk + RTK to use in your projects
+Boiterplate to Redux, Redux Thunk + RTK using Typescript that you use in your projects
 
 ## Stack used
 
@@ -11,6 +11,7 @@ Boiterplate to Redux, Redux Thunk + RTK to use in your projects
 - [Prettier](https://eslint.org/)
 - [Eslint](https://prettier.io/)
 - [React Redux](https://react-redux.js.org/)
+- [Redux Thunk](https://github.com/reduxjs/redux-thunk)
 - [asdf](https://asdf-vm.com/)
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
@@ -52,7 +53,15 @@ git clone git@github.com:fandredev/boiterplate-redux.git
  yarn run build
 ```
 
-## :mailbox_with_no_mail: Contatos
+## :mailbox_with_no_mail: Contacts
 
 E-mail: profissionalf.andre@gmail.com<br>
 Linkedin: https://www.linkedin.com/in/devfandre/<br>
+Portfólio: https://developer-felipe-andre.vercel.app/
+
+## Referencies
+
+- [Vite guide](https://vitejs.dev/guide/)
+- [React Redux](https://react-redux.js.org/)
+- [React Redux with TS](https://react-redux.js.org/using-react-redux/usage-with-typescript)
+- [Currency API](https://currencyapi.com/)
