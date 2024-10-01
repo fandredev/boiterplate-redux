@@ -1,14 +1,14 @@
 export const initialStateCustomer = {
-  fullName: '',
-  nationalID: '',
-  createdAt: '',
+  fullName: "Felipe André",
+  nationalID: "",
+  createdAt: "",
 };
 
 type CustomerState = typeof initialStateCustomer;
 
 type Actions =
   | {
-      type: 'customer/createCustomer';
+      type: "customer/createCustomer";
       payload: {
         fullName: string;
         nationalID: string;
@@ -16,7 +16,7 @@ type Actions =
       };
     }
   | {
-      type: 'customer/updateName';
+      type: "customer/updateName";
       payload: string;
     };
 
@@ -25,7 +25,7 @@ export default function customerReducer(
   action: Actions
 ) {
   switch (action.type) {
-    case 'customer/createCustomer':
+    case "customer/createCustomer":
       return {
         ...state,
         fullName: action.payload.fullName,
@@ -33,7 +33,7 @@ export default function customerReducer(
         createdAt: action.payload.createdAt,
       };
 
-    case 'customer/updateName':
+    case "customer/updateName":
       return {
         ...state,
         fullName: action.payload,
@@ -46,14 +46,14 @@ export default function customerReducer(
 
 export function createCustomer(fullName: string, nationalID: string) {
   return {
-    type: 'customer/createCustomer',
+    type: "customer/createCustomer",
     payload: { fullName, nationalID, createdAt: new Date().toISOString() },
   };
 }
 
 export function updateName(fullName: string) {
   return {
-    type: 'customer/updateName',
+    type: "customer/updateName",
     payload: fullName,
   };
 }
