@@ -3,7 +3,7 @@ import Customer from "./features/customers/Customer";
 import AccountOperations from "./features/accounts/AccountOperations";
 import BalanceDisplay from "./features/accounts/BalanceDisplay";
 import { useSelector } from "react-redux";
-import { RootState } from "./store";
+import { RootState } from "./rtk-boiterplate-store";
 
 export default function App() {
   const fullName = useSelector((state: RootState) => state.customer.fullName);
